@@ -40,7 +40,7 @@ class NotificationService : LifecycleService() {
                     }
                 }
             }
-            handler.postDelayed(this, 10000)
+            handler.postDelayed(this, 60000)
         }
     }
 

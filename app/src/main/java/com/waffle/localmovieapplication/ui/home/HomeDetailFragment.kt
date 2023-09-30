@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.waffle.localmovieapplication.databinding.FragmentDiscoverDetailBinding
+import com.waffle.localmovieapplication.databinding.FragmentHomeDetailBinding
 import com.waffle.localmovieapplication.local.entity.PopularEntity
 import com.waffle.movieappupdate.base.BaseFragment
 import com.waffle.localmovieapplication.utils.loadImage
 
-class HomeDetailFragment() : BaseFragment() {
+class HomeDetailFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentDiscoverDetailBinding
+    private lateinit var binding: FragmentHomeDetailBinding
 
     private val data by lazy {
         arguments?.getParcelable(DATA) ?: PopularEntity(0,null,null,null,null,null,null, null)
@@ -23,7 +23,7 @@ class HomeDetailFragment() : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDiscoverDetailBinding.inflate(inflater)
+        binding = FragmentHomeDetailBinding.inflate(inflater)
         return binding.root
     }
 
@@ -42,6 +42,7 @@ class HomeDetailFragment() : BaseFragment() {
             tvMovieYearAndDuration.text = data.date
             tvMovieGenre.text = data.name
             tvMovieRating.text = data.star.toString()
+            tvAboutMovie.text = data.overview
             ivBackdrop.loadImage(data.backdropPath)
             ivThumbnail.loadImage(data.posterPath)
         }

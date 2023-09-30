@@ -28,7 +28,7 @@ class HomeAdapter(
         val mProject = projectList[position]
         holder.itemView.setOnClickListener {
             fragment.findNavController().navigate(
-            R.id.action_homeFragment_to_discoverDetailFragment, bundleOf(
+            R.id.action_homeFragment_to_homeDetailFragment, bundleOf(
                 HomeDetailFragment.DATA to mProject)
         )
         }

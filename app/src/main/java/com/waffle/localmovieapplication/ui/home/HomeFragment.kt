@@ -42,6 +42,11 @@ class HomeFragment : BaseFragment() {
 
     override fun observeData() {
         viewModel.apply {
+            observeIsError().observe(viewLifecycleOwner) {
+                it.getContentIfNotHandled()?.let { result ->
+                    SweetToast.error(requireContext(), result)
+                }
+            }
             observeGetPopularSuccess().observe(viewLifecycleOwner) {
                 it.getContentIfNotHandled()?.let { data ->
                     if (data.first.isEmpty()) {

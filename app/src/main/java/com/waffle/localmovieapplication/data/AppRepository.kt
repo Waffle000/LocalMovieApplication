@@ -1,15 +1,9 @@
 package com.waffle.localmovieapplication.data
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.waffle.localmovieapplication.api.ApiService
 import com.waffle.localmovieapplication.data.response.PopularResponse
 import com.waffle.localmovieapplication.local.LocalDatabase
 import com.waffle.localmovieapplication.local.entity.PopularEntity
-import com.waffle.localmovieapplication.paging.PopularRemoteMediator
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 class AppRepository(private val apiService: ApiService, private val localDatabase: LocalDatabase) {

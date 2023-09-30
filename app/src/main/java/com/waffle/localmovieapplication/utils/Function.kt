@@ -21,13 +21,3 @@ fun ImageView.loadImage(url: String?, placeholder: Int = R.drawable.ic_launcher_
         )
         .into(this)
 }
-
-internal fun Activity.disableScreen(){
-    window.setFlags(
-        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-}
-
-internal fun Activity.enableScreen(){
-    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-}

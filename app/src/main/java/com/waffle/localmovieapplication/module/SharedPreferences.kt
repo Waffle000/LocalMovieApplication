@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 
-class SharedPreferences(val context: Context) {
+class SharedPreferences(context: Context) {
     companion object {
         private const val PREF_NAME ="waffle.localMovieApplication"
         private const val NOTIFICATION = "notification"

@@ -5,34 +5,34 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Slide
+import androidx.transition.Transition
+import androidx.transition.TransitionManager
+import com.waffle.localmovieapplication.R
 import com.waffle.localmovieapplication.databinding.FragmentHomeBinding
 import com.waffle.localmovieapplication.module.SharedPreferences
 import com.waffle.localmovieapplication.service.Constants
 import com.waffle.localmovieapplication.service.NotificationService
-import com.waffle.movieappupdate.base.BaseFragment
 import com.waffle.localmovieapplication.ui.MainViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import com.waffle.movieappupdate.base.BaseFragment
 import org.koin.android.ext.android.inject
 import xyz.hasnat.sweettoast.SweetToast
 
 
 @ExperimentalPagingApi
-class HomeFragment : BaseFragment(){
+class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: MainViewModel by inject()
 
-    private lateinit var popularAdapter: PopularAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,30 +42,33 @@ class HomeFragment : BaseFragment(){
     }
 
     override fun onViewCreated(savedInstanceState: Bundle?) {
-        val connectivityManager =
-            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-
-        val connected =
-            connectivityManager?.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)?.state == NetworkInfo.State.CONNECTED ||
-                    connectivityManager?.getNetworkInfo(ConnectivityManager.TYPE_WIFI)?.state == NetworkInfo.State.CONNECTED
-
-        popularAdapter = PopularAdapter(this)
-        viewModel.getPopularListLocal()
-
+        viewModel.getPopularListLocal(true)
     }
 
     override fun observeData() {
         viewModel.apply {
             observeGetPopularSuccess().observe(viewLifecycleOwner) {
                 it.getContentIfNotHandled()?.let { data ->
-                    if (data == null) {
+                    if (data.first.isEmpty()) {
                         getPopularList(1, true)
                     } else {
                         binding.apply {
-                            rvMoviesByCategory.apply {
-                                adapter = MovieAdapter(data, this@HomeFragment)
-                                layoutManager = LinearLayoutManager(requireContext())
+                            if(data.second) {
+                                rvMoviesByCategory.apply {
+                                    adapter = MovieAdapter(data.first, this@HomeFragment)
+                                    layoutManager = LinearLayoutManager(requireContext())
+                                }
+                            } else {
+                                showNotification()
+                                btnShowNewData.setOnClickListener {
+                                    rvMoviesByCategory.apply {
+                                        adapter = MovieAdapter(data.first, this@HomeFragment)
+                                        layoutManager = LinearLayoutManager(requireContext())
+                                    }
+                                    closeNotification()
+                                }
                             }
+
                         }
                     }
                 }
@@ -95,6 +98,21 @@ class HomeFragment : BaseFragment(){
                 btnNotifOn.isGone = false
             }
         }
+    }
+
+    private fun closeNotification() {
+        val transition: Transition = Slide(Gravity.BOTTOM)
+        transition.setDuration(600)
+        transition.addTarget(R.id.parent_notif)
+        TransitionManager.beginDelayedTransition(binding.root, transition)
+        binding.parentNotif.isGone = true
+    }
+    private fun showNotification() {
+        val transition: Transition = Slide(Gravity.BOTTOM)
+        transition.setDuration(600)
+        transition.addTarget(R.id.parent_notif)
+        TransitionManager.beginDelayedTransition(binding.root, transition)
+        binding.parentNotif.isGone = false
     }
 
     private fun startNotificationService() {

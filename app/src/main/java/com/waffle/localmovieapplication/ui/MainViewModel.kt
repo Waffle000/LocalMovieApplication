@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: AppRepository) : ViewModel() {
 
-    private val getPopularSuccess = MutableLiveData<SingleLiveEvent<List<PopularEntity>>>()
-    fun observeGetPopularSuccess(): LiveData<SingleLiveEvent<List<PopularEntity>>> =
+    private val getPopularSuccess = MutableLiveData<SingleLiveEvent<Pair<List<PopularEntity>, Boolean>>>()
+    fun observeGetPopularSuccess(): LiveData<SingleLiveEvent<Pair<List<PopularEntity>, Boolean>>> =
         getPopularSuccess
 
     private val getPopularRemoteSuccess = MutableLiveData<SingleLiveEvent<Boolean>>()
@@ -47,7 +47,7 @@ class MainViewModel(private val repository: AppRepository) : ViewModel() {
                     }
                     data?.let { repository.insertPopularList(it) }
                     getPopularRemoteSuccess.postValue(SingleLiveEvent(true))
-                    getPopularListLocal()
+                    getPopularListLocal(parameter)
 
                 } else {
                     isError.postValue(SingleLiveEvent("Data Kosong"))
@@ -58,12 +58,12 @@ class MainViewModel(private val repository: AppRepository) : ViewModel() {
         }
     }
 
-    fun getPopularListLocal() {
+    fun getPopularListLocal(parameter: Boolean) {
         viewModelScope.launch {
             try {
                 val result = repository.getPopularLocal()
                 if (result != null) {
-                    getPopularSuccess.postValue(SingleLiveEvent(result))
+                    getPopularSuccess.postValue(SingleLiveEvent(Pair(result, parameter)))
                 } else {
                     isError.postValue(SingleLiveEvent("Data Kosong"))
                 }

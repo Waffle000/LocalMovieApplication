@@ -73,6 +73,7 @@ class NotificationService : LifecycleService() {
         builder.setDefaults(NotificationCompat.DEFAULT_ALL)
         builder.setContentIntent(pendingIntent)
         builder.setAutoCancel(true)
+        builder.setTimeoutAfter(5000)
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
         builder.setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
         builder.priority = NotificationCompat.PRIORITY_MAX

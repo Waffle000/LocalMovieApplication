@@ -1,6 +1,5 @@
 package com.waffle.localmovieapplication.ui.splash
 
-import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -12,10 +11,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.thecode.aestheticdialogs.AestheticDialog
-import com.thecode.aestheticdialogs.DialogAnimation
 import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
 import com.thecode.aestheticdialogs.OnDialogClickListener

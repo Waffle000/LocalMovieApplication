@@ -14,20 +14,4 @@ interface ApiService {
     suspend fun getPopularList(
         @Query("page") page: Int
     ) : Response<PopularResponse>
-
-    @GET("movie/{id}")
-    suspend fun getMovieDetail(
-        @Path("id") id: Int
-    ) : Response<DiscoverDetailResponse>
-
-    @GET("movie/{id}/reviews")
-    suspend fun getMovieReview(
-        @Path("id") id: Int,
-        @Query("page") page: Int
-    ) : Response<DiscoverReviewResponse>
-
-    @GET("movie/{id}/videos")
-    suspend fun getMovieTrailer(
-        @Path("id") id: Int
-    ) : Response<DiscoverThrillerResponse>
 }

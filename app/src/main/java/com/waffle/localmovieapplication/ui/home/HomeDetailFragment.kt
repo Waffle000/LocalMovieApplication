@@ -1,4 +1,4 @@
-package com.waffle.localmovieapplication.ui.discover
+package com.waffle.localmovieapplication.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import com.waffle.localmovieapplication.local.entity.PopularEntity
 import com.waffle.movieappupdate.base.BaseFragment
 import com.waffle.localmovieapplication.utils.loadImage
 
-class MovieDetailFragment() : BaseFragment() {
+class HomeDetailFragment() : BaseFragment() {
 
     private lateinit var binding: FragmentDiscoverDetailBinding
 

@@ -1,16 +1,12 @@
 package com.waffle.localmovieapplication.ui.home
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
-import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Slide
 import androidx.transition.Transition
@@ -26,7 +22,6 @@ import org.koin.android.ext.android.inject
 import xyz.hasnat.sweettoast.SweetToast
 
 
-@ExperimentalPagingApi
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
@@ -55,14 +50,14 @@ class HomeFragment : BaseFragment() {
                         binding.apply {
                             if(data.second) {
                                 rvMoviesByCategory.apply {
-                                    adapter = MovieAdapter(data.first, this@HomeFragment)
+                                    adapter = HomeAdapter(data.first, this@HomeFragment)
                                     layoutManager = LinearLayoutManager(requireContext())
                                 }
                             } else {
                                 showNotification()
                                 btnShowNewData.setOnClickListener {
                                     rvMoviesByCategory.apply {
-                                        adapter = MovieAdapter(data.first, this@HomeFragment)
+                                        adapter = HomeAdapter(data.first, this@HomeFragment)
                                         layoutManager = LinearLayoutManager(requireContext())
                                     }
                                     closeNotification()

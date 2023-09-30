@@ -29,20 +29,4 @@ class AppRepository(private val apiService: ApiService, private val localDatabas
     suspend fun getPopular(page: Int) : Response<PopularResponse> {
         return apiService.getPopularList(page)
     }
-
-//    @ExperimentalPagingApi
-//    fun getPopularList(): Flow<PagingData<PopularEntity>> {
-//        return Pager(
-//            PagingConfig(
-//                pageSize = 20,
-//                initialLoadSize = 20,
-//                enablePlaceholders = false,
-//            ),
-//            remoteMediator = PopularRemoteMediator(
-//                apiService,
-//                localDatabase
-//            ),
-//            pagingSourceFactory = { localDatabase.popularDao().getPopularList() }
-//        ).flow
-//    }
 }

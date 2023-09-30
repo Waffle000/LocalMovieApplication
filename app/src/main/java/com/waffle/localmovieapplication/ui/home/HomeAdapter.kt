@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.waffle.localmovieapplication.R
 import com.waffle.localmovieapplication.databinding.ItemPopularBinding
 import com.waffle.localmovieapplication.local.entity.PopularEntity
-import com.waffle.localmovieapplication.ui.discover.MovieDetailFragment
 import com.waffle.localmovieapplication.utils.loadImage
 
-class MovieAdapter(
+class HomeAdapter(
     private var projectList : List<PopularEntity>,
     private val fragment: Fragment
-): RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     class ViewHolder(val binding : ItemPopularBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -30,7 +29,7 @@ class MovieAdapter(
         holder.itemView.setOnClickListener {
             fragment.findNavController().navigate(
             R.id.action_homeFragment_to_discoverDetailFragment, bundleOf(
-                MovieDetailFragment.DATA to mProject)
+                HomeDetailFragment.DATA to mProject)
         )
         }
         bindDataToView(binding, mProject)

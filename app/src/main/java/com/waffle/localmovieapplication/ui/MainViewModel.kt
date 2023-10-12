@@ -62,11 +62,7 @@ class MainViewModel(private val repository: AppRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val result = repository.getPopularLocal()
-                if (result.isEmpty()) {
-                    getPopularSuccess.postValue(SingleLiveEvent(Pair(result, parameter)))
-                } else {
-                    isError.postValue(SingleLiveEvent("Data Kosong"))
-                }
+                getPopularSuccess.postValue(SingleLiveEvent(Pair(result, parameter)))
             } catch (e: Exception) {
                 isError.postValue(SingleLiveEvent(e.message ?: "Terjadi Kesalahan"))
             }

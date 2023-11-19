@@ -1,0 +1,5 @@
+package com.waffle.core.module
+
+object Constant {
+    const val TOKEN_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3N2JkOGM1MGMzOTc4NmI3YjU4ZGExNDc4ZGY5MDMwMSIsInN1YiI6IjY0ZTQ1ZjJhZTBjYTdmMDEwMDZmOGM3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vYwzpPpQPUmCPZjLKqHPTA-r9DCO_NPhhRaPTUn4dgA"
+}

@@ -18,3 +18,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "LocalMovieApplication"
 include ':app'
+include ':core'
+include ':favoriteFeature'

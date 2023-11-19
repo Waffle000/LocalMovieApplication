@@ -29,25 +29,15 @@
                 android:textSize="20dp" />
 
             <ImageView
-                android:id="@+id/btn_notif_on"
+                android:id="@+id/btn_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_notif_off"
+                android:src="@drawable/ic_favorite"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
                 app:tint="@color/white" />
 
-            <ImageView
-                android:id="@+id/btn_notif_off"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_notif_on"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:visibility="gone"
-                app:tint="@color/white" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -86,4 +76,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

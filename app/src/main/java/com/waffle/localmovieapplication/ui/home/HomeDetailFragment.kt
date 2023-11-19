@@ -4,25 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
 import com.waffle.localmovieapplication.databinding.FragmentHomeDetailBinding
-import com.waffle.localmovieapplication.local.entity.PopularEntity
-import com.waffle.movieappupdate.base.BaseFragment
-import com.waffle.localmovieapplication.utils.loadImage
+import com.waffle.core.local.entity.PopularEntity
+import com.waffle.core.base.BaseFragment
+import com.waffle.core.local.model.Popular
+import com.waffle.core.utils.loadImage
+import org.koin.android.ext.android.inject
 
 class HomeDetailFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeDetailBinding
 
     private val data by lazy {
-        arguments?.getParcelable(DATA) ?: PopularEntity(0,null,null,null,null,null,null, null)
+        arguments?.getParcelable(DATA) ?: Popular(0,null,null,null,null,null,null, null, false)
     }
 
+    private val viewModel : HomeViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeDetailBinding.inflate(inflater)
         return binding.root
     }
@@ -45,6 +49,20 @@ class HomeDetailFragment : BaseFragment() {
             tvAboutMovie.text = data.overview
             ivBackdrop.loadImage(data.backdropPath)
             ivThumbnail.loadImage(data.posterPath)
+            ivFavBorder.isGone = data.isFavorite
+            ivFav.isGone = !data.isFavorite
+            ivFavBorder.setOnClickListener{
+                ivFavBorder.isGone = true
+                ivFav.isGone = false
+                data.isFavorite = true
+                viewModel.updatePopular(data)
+            }
+            ivFav.setOnClickListener{
+                ivFavBorder.isGone = false
+                ivFav.isGone = true
+                data.isFavorite = false
+                viewModel.updatePopular(data)
+            }
         }
     }
     companion object {

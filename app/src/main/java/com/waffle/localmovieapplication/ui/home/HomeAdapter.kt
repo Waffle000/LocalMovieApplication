@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.waffle.core.local.model.Popular
+import com.waffle.core.utils.loadImage
 import com.waffle.localmovieapplication.R
 import com.waffle.localmovieapplication.databinding.ItemPopularBinding
-import com.waffle.localmovieapplication.local.entity.PopularEntity
-import com.waffle.localmovieapplication.utils.loadImage
 
 class HomeAdapter(
-    private var projectList : List<PopularEntity>,
     private val fragment: Fragment
 ): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
+    private val list = ArrayList<Popular>()
     class ViewHolder(val binding : ItemPopularBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,19 +25,19 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val binding = holder.binding
-        val mProject = projectList[position]
+        val mProject = list[position]
         holder.itemView.setOnClickListener {
-            fragment.findNavController().navigate(
-            R.id.action_homeFragment_to_homeDetailFragment, bundleOf(
-                HomeDetailFragment.DATA to mProject)
-        )
+            findNavController(fragment).navigate(
+                R.id.action_homeFragment_to_homeDetailFragment, bundleOf(
+                    HomeDetailFragment.DATA to mProject)
+            )
         }
         bindDataToView(binding, mProject)
     }
 
-    override fun getItemCount() = projectList.size
+    override fun getItemCount() = list.size
 
-    private fun bindDataToView(binding: ItemPopularBinding, item : PopularEntity){
+    private fun bindDataToView(binding: ItemPopularBinding, item : Popular){
         binding.apply {
             tvMovieTitle.text = item.name
             tvMovieRating.text = item.star.toString()
@@ -46,6 +46,14 @@ class HomeAdapter(
             ivThumbnail.loadImage(item.posterPath)
 
         }
+    }
+
+    fun setData(dataList: List<Popular>) {
+        with(this.list) {
+            clear()
+            addAll(dataList)
+        }
+        notifyDataSetChanged()
     }
 
 }

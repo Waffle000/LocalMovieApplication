@@ -6,6 +6,8 @@ orbs:
 jobs:
   build:
     executor: android/android
+    docker: 
+      - image: mobiledevops/android-sdk-image:33.0.2
     steps:
       - checkout
       - restore_cache:

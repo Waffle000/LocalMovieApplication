@@ -13,6 +13,13 @@ jobs:
       - restore_cache:
           key: android-orb-v1-
       - run:
+          name: SDK Checker
+          command: |
+               yes | sdkmanager --licenses > /dev/null || true
+               sdkmanager "platforms;android-34"
+               sdkmanager "platform-tools"
+               sdkmanager "build-tools;34.0.0"
+      - run:
           name: Chmod permissions
           command: chmod +x ./gradlew
       - run:

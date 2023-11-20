@@ -13,9 +13,6 @@ jobs:
       - restore_cache:
           key: android-orb-v1-
       - run:
-          name: Chmod permissions
-          command: ./gradlew
-      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:

@@ -13,11 +13,8 @@ jobs:
       - restore_cache:
           key: android-orb-v1-
       - run:
-          name: Install Sudo
-          command: sudo apt-get install sudo
-      - run:
           name: Chmod permissions
-          command: sudo chmod +x ./gradlew
+          command: ./gradlew
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
